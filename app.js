@@ -5,8 +5,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const exerciseRouter = require('./routes/exercise');
+const mongoose = require('mongoose');
 
 const app = express();
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MLAB_URI, { useNewUrlParser: true });
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -15,10 +18,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/exercise', exerciseRouter);
-
-// app.post('/api/exercise/new-user', (req, res, next) => {
-//     console.log(req.query)
-//     res.json({message: "New user response"});
-// });
 
 module.exports = app;
