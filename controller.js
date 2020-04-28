@@ -17,7 +17,7 @@ const addUser = (req, res) => {
 };
 
 const getAllUsers = (req, res) => {
-    User.find({}, (err, docs) => res.json(docs)).select({count: 0, __v: 0});
+    User.find({}, (err, docs) => res.json(docs)).select({count: 0, __v: 0, log: 0});
 };
 
 const addExerciseToUserLog = (req, res) => {
